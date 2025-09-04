@@ -1,0 +1,126 @@
+.chat-input-container {
+  padding: 20px;
+  background: white;
+  border-top: 1px solid #e1e5e9;
+}
+
+.chat-input-form {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  max-width: 100%;
+}
+
+.chat-input {
+  flex: 1;
+  min-height: 44px;
+  max-height: 120px;
+  padding: 12px 16px;
+  border: 2px solid #e1e5e9;
+  border-radius: 22px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: none;
+  outline: none;
+  transition: all 0.2s ease;
+  background: #f8f9fa;
+  line-height: 1.4;
+  color: #333;
+}
+
+.chat-input:focus {
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  color: #333;
+}
+
+.chat-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #f0f0f0;
+  color: #666;
+}
+
+.chat-input::placeholder {
+  color: #999;
+}
+
+.send-button {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  flex-shrink: 0;
+}
+
+.send-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.send-button:active {
+  transform: translateY(0);
+}
+
+.send-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+.send-icon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* Auto-resize textarea */
+.chat-input {
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
+
+/* Focus ring for accessibility */
+.send-button:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+.chat-input:focus {
+  outline: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .chat-input-container {
+    padding: 15px;
+  }
+  
+  .chat-input-form {
+    gap: 10px;
+  }
+  
+  .chat-input {
+    min-height: 40px;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+  
+  .send-button {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .send-icon {
+    font-size: 14px;
+  }
+}
