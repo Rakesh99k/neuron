@@ -9,7 +9,7 @@ const Chatbot = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I'm your AI assistant. How can I help you today?\n\n⚠️ Note: Your Hugging Face API key needs 'Inference API' permissions. Currently using enhanced simulation mode. To get real AI responses, please create a new token with proper permissions at huggingface.co/settings/tokens",
+      text: "Hello! I'm your AI assistant. How can I help you today?\n\nTip: Click the ⚙️ icon to configure your AI provider and add an API key. Without a key, I’ll reply in demo mode.",
       isAi: true,
       timestamp: new Date()
     }
