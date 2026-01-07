@@ -9,7 +9,7 @@ const Chatbot = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Hello! I'm your AI assistant. How can I help you today?\n\nTip: Click the ⚙️ icon to configure your AI provider and add an API key. Without a key, I’ll reply in demo mode.",
+      text: "Neuron online. What's the mission?\n\nTip: Click the ⚙️ icon to add your Gemini API key. Without a key, I’ll reply in demo mode.",
       isAi: true,
       timestamp: new Date()
     }
