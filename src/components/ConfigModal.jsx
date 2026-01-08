@@ -1,10 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import aiService from '../services/aiService';
 import './ConfigModal.css';
 
 const ConfigModal = ({ isOpen, onClose, onConfigUpdate }) => {
   const [apiKey, setApiKey] = useState('');
+  const [model, setModel] = useState('gemini-2.5-flash');
+  const [temperature, setTemperature] = useState(0.2);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    // Pre-fill from service state if available
+    if (aiService.apiKey) setApiKey(aiService.apiKey);
+    if (aiService.model) setModel(aiService.model);
+    if (aiService.generationConfig?.temperature !== undefined) {
+      setTemperature(aiService.generationConfig.temperature);
+    }
+  }, [isOpen]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,15 +24,16 @@ const ConfigModal = ({ isOpen, onClose, onConfigUpdate }) => {
     setIsLoading(true);
     try {
       // Set the credentials (Gemini only)
-      aiService.setCredentials(apiKey);
+      aiService.setCredentials(apiKey, 'gemini', model);
+      aiService.setGenerationConfig({ temperature: Number(temperature) });
       aiService.initialized = true;
-      
+
       // Test the connection
       await aiService.sendMessage('Hello', []);
-      
+
       onConfigUpdate();
       onClose();
-      
+
       // Clear the form
       setApiKey('');
     } catch (error) {
@@ -53,6 +65,34 @@ const ConfigModal = ({ isOpen, onClose, onConfigUpdate }) => {
               placeholder="Enter your API key here..."
               className="form-input"
               required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="model">Model:</label>
+            <select
+              id="model"
+              className="form-select"
+              value={model}
+              onChange={(e) => setModel(e.target.value)}
+            >
+              <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+              <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+              <option value="gemini-1.5-pro">gemini-1.5-pro</option>
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="temperature">Temperature (0-1):</label>
+            <input
+              id="temperature"
+              type="number"
+              min="0"
+              max="1"
+              step="0.05"
+              value={temperature}
+              onChange={(e) => setTemperature(e.target.value)}
+              className="form-input"
             />
           </div>
 
