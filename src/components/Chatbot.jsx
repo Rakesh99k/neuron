@@ -75,7 +75,7 @@ const Chatbot = () => {
             <p>Ask me anything!</p>
             <div className="ai-provider-status" key={configKey}>
               {aiService.initialized 
-                ? `Powered by ${aiService.provider}` 
+                ? `Powered by ${aiService.provider} · ${aiService.model}` 
                 : 'Demo mode - Add API key for full functionality'
               }
             </div>
@@ -89,6 +89,18 @@ const Chatbot = () => {
           </button>
         </div>
       </div>
+      {!aiService.initialized && (
+        <div className="demo-banner" style={{
+          background: '#fff3cd',
+          color: '#664d03',
+          border: '1px solid #ffecb5',
+          padding: '8px 12px',
+          borderRadius: '8px',
+          margin: '8px 12px'
+        }}>
+          You are in demo mode. Replies are templates. Click ⚙️ to add your Gemini API key for real, code-rich responses.
+        </div>
+      )}
       
       <div className="chatbot-messages">
         {messages.map((message) => (
