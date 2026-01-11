@@ -1,12 +1,12 @@
-# 🤖 Neuron - AI Chatbot
+# 🤖 Neuron - AI Chatbot (Gemini)
 
-A modern, responsive AI chatbot built with React and Vite. This project provides a beautiful chat interface with support for multiple AI providers.
+A modern, responsive AI chatbot built with React and Vite. This fork/config uses Google Gemini only for real AI responses and includes a demo mode when no key is set.
 
 ## ✨ Features
 
 - 🎨 **Modern UI Design** - Clean, responsive chat interface
 - 💬 **Real-time Chat** - Smooth message flow with typing indicators
-- 🔌 **AI Integration Ready** - Pre-built structure for OpenAI, Claude, and Gemini APIs
+- 🔌 **Gemini Integration** - Built-in Google Gemini support
 - 📱 **Mobile Responsive** - Works perfectly on all device sizes
 - ⚡ **Fast Performance** - Built with Vite for lightning-fast development
 - 🎭 **Message Animation** - Smooth animations for incoming messages
@@ -37,33 +37,17 @@ npm run dev
 
 4. Open your browser and navigate to `http://localhost:5173`
 
-## 🔧 AI Integration
+## 🔧 Gemini Setup
 
-The chatbot is currently running with simulated AI responses. To integrate with real AI services:
+The chatbot runs in demo mode without a key. To enable real Gemini responses:
 
-### OpenAI Integration
-```javascript
-import aiService from './services/aiService';
-
-// Configure OpenAI
-aiService.setCredentials('your-openai-api-key', 'openai');
+1) Get a Gemini API key: https://aistudio.google.com/app/apikey
+2) Add it to your `.env`:
 ```
-
-### Claude Integration
-```javascript
-import aiService from './services/aiService';
-
-// Configure Claude
-aiService.setCredentials('your-anthropic-api-key', 'claude');
+VITE_GEMINI_API_KEY=your_real_key_here
+VITE_DEFAULT_AI_PROVIDER=gemini
 ```
-
-### Google Gemini Integration
-```javascript
-import aiService from './services/aiService';
-
-// Configure Gemini
-aiService.setCredentials('your-gemini-api-key', 'gemini');
-```
+3) Restart the dev server: `npm run dev`
 
 ## 📁 Project Structure
 
@@ -85,8 +69,10 @@ src/
 ### Changing the Theme
 Modify the CSS custom properties in the component stylesheets to match your brand colors.
 
-### Adding New AI Providers
-Extend the `aiService.js` file to add support for additional AI APIs.
+### Switching Models
+Default model: gemini-2.5-flash.
+Change the model in [src/services/aiService.js](src/services/aiService.js) or via the in-app ⚙️ settings.
+Available options include `gemini-2.5-flash`, `gemini-1.5-flash`, and `gemini-1.5-pro`.
 
 ## 📜 Available Scripts
 
