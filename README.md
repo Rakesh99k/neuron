@@ -1,17 +1,18 @@
-# 🤖 Neuron - AI Chatbot (Gemini)
+# Neuron
 
-A modern, responsive AI chatbot built with React and Vite. This fork/config uses Google Gemini only for real AI responses and includes a demo mode when no key is set.
+Neuron is a calm, non-judgmental chatbot designed to listen to thoughts and emotions and respond with gentle reflection.
 
-## ✨ Features
+Neuron is not a therapist, not a doctor, and not a crisis service.
 
-- 🎨 **Modern UI Design** - Clean, responsive chat interface
-- 💬 **Real-time Chat** - Smooth message flow with typing indicators
-- 🔌 **Gemini Integration** - Built-in Google Gemini support
-- 📱 **Mobile Responsive** - Works perfectly on all device sizes
-- ⚡ **Fast Performance** - Built with Vite for lightning-fast development
-- 🎭 **Message Animation** - Smooth animations for incoming messages
+## Features
 
-## 🚀 Getting Started
+- Soft, distraction-free chat UI
+- Conversation memory (full chat history is sent each request)
+- Typing indicator: “Neuron is listening…”
+- Input is disabled while Neuron responds
+- Gentle error messages when the API fails
+
+## Local Setup
 
 ### Prerequisites
 - Node.js (v14 or higher)
@@ -30,41 +31,55 @@ cd neuron
 npm install
 ```
 
-3. Start the development server:
+3. Configure your Gemini key:
+
+- Copy [\.env.example](.env.example) to `.env`
+- Set:
+	- `VITE_GEMINI_API_KEY=your_key_here`
+
+4. Start the development server:
 ```bash
 npm run dev
 ```
 
 4. Open your browser and navigate to `http://localhost:5173`
 
-## 🔧 Gemini Setup
+## Gemini Model
 
-The chatbot runs in demo mode without a key. To enable real Gemini responses:
+- Uses `gemini-1.5-flash` by default via the Google Generative Language API.
+- Override with `VITE_GEMINI_MODEL` in your `.env` if your account/region supports different models.
+- The Neuron personality instruction is included on every request (see [src/services/geminiService.js](src/services/geminiService.js)).
 
-1) Get a Gemini API key: https://aistudio.google.com/app/apikey
-2) Add it to your `.env`:
-```
-VITE_GEMINI_API_KEY=your_real_key_here
-VITE_DEFAULT_AI_PROVIDER=gemini
-```
-3) Restart the dev server: `npm run dev`
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
 ├── components/
-│   ├── Chatbot.jsx          # Main chatbot container
-│   ├── ChatMessage.jsx      # Individual message component
-│   ├── ChatInput.jsx        # Message input component
-│   └── *.css                # Component styles
+│   ├── ChatWindow.jsx
+│   ├── ThoughtBubble.jsx
+│   └── ThoughtInput.jsx
 ├── services/
-│   └── aiService.js         # AI API integration service
+│   └── geminiService.js
+├── hooks/
+│   └── useNeuron.js
 ├── App.jsx                  # Main app component
 └── main.jsx                 # App entry point
 ```
 
-## 🎨 Customization
+## Emotional Design Choices
+
+- Low visual pressure: soft background, no flashing/celebratory effects.
+- Short-to-medium replies: tuned output length to avoid overwhelm.
+- “Listening” over “fixing”: the prompt prioritizes validation and reflection before suggestions.
+- Optional questions: Neuron asks gentle questions without interrogating.
+
+## Common Mistakes To Avoid (Mental-health-adjacent AI)
+
+- Diagnosing (“you have X”) or implying certainty about mental conditions.
+- Medical advice, treatment plans, or crisis instructions.
+- Toxic positivity (“just be positive”, “everything happens for a reason”).
+- Over-long replies that feel like a lecture.
+- Pushing solutions too early instead of reflecting what the user said.
 
 ### Changing the Theme
 Modify the CSS custom properties in the component stylesheets to match your brand colors.
@@ -85,6 +100,4 @@ Available options include `gemini-2.5-flash`, `gemini-1.5-flash`, and `gemini-1.
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
