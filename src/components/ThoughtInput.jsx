@@ -11,13 +11,21 @@ export default function ThoughtInput({ disabled, onSend }) {
   }, [disabled]);
 
   function submit() {
-    const v = value;
+    if (disabled) return;
+    const trimmed = value.trim();
+    if (!trimmed) return;
     setValue('');
-    onSend?.(v);
+    onSend?.(trimmed);
   }
 
   return (
-    <div className="nb-input">
+    <form
+      className="nb-input"
+      onSubmit={(e) => {
+        e.preventDefault();
+        submit();
+      }}
+    >
       <textarea
         ref={textareaRef}
         className="nb-textarea"
@@ -27,21 +35,22 @@ export default function ThoughtInput({ disabled, onSend }) {
         onKeyDown={(e) => {
           if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
-            if (!disabled) submit();
+            submit();
           }
         }}
         rows={2}
         disabled={disabled}
+        maxLength={4000}
         aria-label="Your message"
       />
       <button
         className="nb-send"
         onClick={() => submit()}
         disabled={disabled || !value.trim()}
-        type="button"
+        type="submit"
       >
         Send
       </button>
-    </div>
+    </form>
   );
 }
